@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Code } from "lucide-react";
 
 // This function extracts circuit data from the gates state
 export function extractCircuitData(gates, cnotGates) {
@@ -119,12 +118,11 @@ export default function CircuitDataExtractor({ gates, cnotGates }) {
   };
 
   return (
-    <>
-      <Button
+    <div className="flex flex-col items-center gap-4">
+      <Button 
         onClick={handleExtractData}
         className="flex items-center gap-2 mt-4"
       >
-        <Code size={16} />
         Extract Circuit Data
       </Button>
 
@@ -151,6 +149,6 @@ export default function CircuitDataExtractor({ gates, cnotGates }) {
           </div>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }

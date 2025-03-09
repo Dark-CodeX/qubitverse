@@ -3,7 +3,7 @@ import React from "react";
 export const Dialog = ({ open, onOpenChange, children }) => {
   return (
     open && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div className=" inset-0 bg-black bg-opacity-50 flex justify-center items-center">
         <div className="bg-white rounded-lg p-6">
           <button
             className="absolute top-2 right-2 text-xl"
