@@ -51,3 +51,25 @@ Before large changes, please open a design discussion issue first.
 
 
 ![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
+
+**Helpful Resources (Git & GitHub)**
+
+If you’re new to open source or GitHub, these official guides will get you moving quickly:
+
+📌 [Creating an Issue (or PR) with GitHub Desktop](https://help.github.com/en/desktop/contributing-to-projects/creating-an-issue-or-pull-request)
+
+🍴 [Fork a Repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
+
+⬇️ [Clone Your Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo#cloning-your-forked-repository)
+
+🔁 [Create a Pull Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+
+🚀 [Getting Started with Git & GitHub](https://docs.github.com/get-started)
+
+
+![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
+
+
+<h2 align="center">Tip from us 😇</h1>
+<p align="center">Every expert started at |0⟩ — apply one gate at a time and watch your skills evolve. You've got this! 💪</p>
+<h3 align="center">Show some &nbsp;❤️&nbsp; by &nbsp;🌟&nbsp; this repository!</h3>
