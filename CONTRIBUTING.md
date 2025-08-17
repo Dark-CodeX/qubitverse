@@ -8,17 +8,7 @@
 </div>
 
 
-<p align="center">
-  <svg width="100%" height="8" viewBox="0 0 1200 8" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="divider">
-    <defs>
-      <linearGradient id="qgrad" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#7C3AED"/>
-        <stop offset="100%" stop-color="#06B6D4"/>
-      </linearGradient>
-    </defs>
-    <rect x="0" y="0" width="1200" height="8" rx="4" fill="url(#qgrad)"/>
-  </svg>
-</p>
+![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
 
 
 **Ways to Contribute**
@@ -30,15 +20,4 @@
 
 Before large changes, please open a design discussion issue first.
 
-
-<p align="center">
-  <svg width="100%" height="8" viewBox="0 0 1200 8" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="divider">
-    <defs>
-      <linearGradient id="qgrad" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#7C3AED"/>
-        <stop offset="100%" stop-color="#06B6D4"/>
-      </linearGradient>
-    </defs>
-    <rect x="0" y="0" width="1200" height="8" rx="4" fill="url(#qgrad)"/>
-  </svg>
-</p>
+![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
