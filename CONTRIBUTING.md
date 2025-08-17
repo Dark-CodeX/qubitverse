@@ -12,10 +12,15 @@
 
 
 **Ways to Contribute**
+
 🐛 Report bugs: Use the issue template; include steps to reproduce, expected/actual behavior, OS/toolchain versions.
+
 💡 Request features: Describe the use case and (if relevant) any UI/UX ideas for the GUI.
+
 🧹 Improve docs: Clarify setup, add examples, or write tutorials.
+
 🧪 Add tests: Unit tests for gates/state evolution; e2e checks for the GUI.
+
 ⚙️ Implement enhancements: Performance improvements, better numerics, new gates, or multi‑qubit support.
 
 Before large changes, please open a design discussion issue first.
