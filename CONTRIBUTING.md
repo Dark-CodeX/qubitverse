@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>✨ Contributors Guide — Quantum Gate Simulator & GUI Visualizer ✨</h1>
+  <h1>✨Contributors Guide — Quantum Gate Simulator & GUI Visualizer✨</h1>
   <h3>
     Welcome to the Quantum Gate Simulator & GUI Visualizer! 😍<br>
     Thanks for your interest in contributing. 😊<br>
