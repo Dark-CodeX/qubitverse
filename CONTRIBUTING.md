@@ -11,7 +11,7 @@
 ![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
 
 
-**Ways to Contribute**
+<h2><b>Ways to Contribute</b>b></h2>
 
 🐛 Report bugs: Use the issue template; include steps to reproduce, expected/actual behavior, OS/toolchain versions.
 
@@ -27,7 +27,7 @@ Before large changes, please open a design discussion issue first.
 
 ![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
 
-**How to Contribute:**
+<h2><b>How to Contribute:</b></h2>
 
 ⭐ Star this repository to show support.
 
@@ -52,7 +52,7 @@ Before large changes, please open a design discussion issue first.
 
 ![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
 
-**Helpful Resources (Git & GitHub)**
+<h2><b>Helpful Resources (Git & GitHub):</b></h2>
 
 If you’re new to open source or GitHub, these official guides will get you moving quickly:
 
