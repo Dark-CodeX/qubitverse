@@ -1,13 +1,174 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QubitVerse</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <title>QubitVerse: Quantum Gate Simulator & Visualizer</title>
+    <!-- Favicon from a public domain source (or you can use your own) -->
+    <link rel="icon" href="https://www.svgrepo.com/show/368541/qubit.svg" type="image/svg+xml">
+    <!-- Load Tailwind CSS for utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Apply a custom font for a clean, modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #E2E8F0; /* Light gray text for contrast on dark background */
+        }
+        /* Custom scrollbar for a sleek design */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-track {
+            background: #1A202C;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: #4A5568;
+            border-radius: 4px;
+            border: 2px solid #1A202C;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <!-- Header Section -->
+    <header class="p-6">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto">
+            <!-- Project Logo/Name -->
+            <a href="#" class="flex items-center space-x-2 text-xl font-bold text-white transition-transform hover:scale-105">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 12l10 10 10-10L12 2z"></path>
+                    <path d="M12 2v10l-5 5"></path>
+                    <path d="M12 12l5 5"></path>
+                </svg>
+                <span>QubitVerse</span>
+            </a>
+            <!-- Navigation Links -->
+            <ul class="flex space-x-6 text-sm font-medium">
+                <li><a href="#overview" class="hover:text-blue-400 transition-colors">Overview</a></li>
+                <li><a href="#features" class="hover:text-blue-400 transition-colors">Features</a></li>
+                <li><a href="#tech" class="hover:text-blue-400 transition-colors">Technology</a></li>
+                <li><a href="#contribute" class="hover:text-blue-400 transition-colors">Contribute</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Main Content Section -->
+    <main class="max-w-7xl mx-auto py-12 px-6">
+        <!-- Hero Section -->
+        <section class="text-center py-20 bg-gray-800 rounded-3xl shadow-xl transition-transform hover:scale-[1.01]">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 animate-pulse-slow">QubitVerse</h1>
+            <h2 class="text-3xl font-semibold mt-4">Quantum Gate Simulator & GUI Visualizer</h2>
+            <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-400">
+                A powerful backend built in C++ for quantum computation, paired with a modern, interactive Node.js GUI for circuit design and state visualization. Experience the future of quantum computing education.
+            </p>
+            <div class="mt-8 space-x-4">
+                <a href="#features" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+                    Explore Features
+                </a>
+                <a href="#contribute" class="inline-block bg-transparent border-2 border-gray-600 hover:border-gray-500 text-gray-300 font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:text-white">
+                    Get Involved
+                </a>
+            </div>
+        </section>
+        <!-- Overview Section -->
+        <section id="overview" class="py-20">
+            <h3 class="text-4xl font-bold mb-10 text-center">Project Overview</h3>
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- C++ Backend Card -->
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-700 transition-transform duration-300 hover:translate-y-[-5px]">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-3xl font-bold text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.5l-5-5L8 11l-3 3 5 5 1-1zM17 11l-5 5-2-2 5-5 2 2z"/></svg>
+                        </span>
+                        <h4 class="text-2xl font-semibold text-white">Quantum Gate Simulator (C++)</h4>
+                    </div>
+                    <p class="text-gray-400">
+                        The computational engine of QubitVerse. This C++ backend handles all the heavy lifting of quantum mechanics. It represents qubit states and applies operations using manual matrix manipulation, providing a fast and low-level foundation for quantum simulations. It's built for performance and accuracy.
+                    </p>
+                </div>
+                <!-- Node.js Frontend Card -->
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-700 transition-transform duration-300 hover:translate-y-[-5px]">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-3xl font-bold text-green-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-11h2V7h-2v2zm0 4h2v-2h-2v2z"/></svg>
+                        </span>
+                        <h4 class="text-2xl font-semibold text-white">GUI Visualizer (Node.js)</h4>
+                    </div>
+                    <p class="text-gray-400">
+                        The user-friendly face of the project. This interactive Node.js frontend allows users to build quantum circuits visually. Drag-and-drop gates, construct complex sequences, and watch the quantum state evolve in real-time on intuitive visualizations like Bloch spheres and probability histograms.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- Features Section -->
+        <section id="features" class="py-20">
+            <h3 class="text-4xl font-bold mb-10 text-center">Key Features</h3>
+            <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-gray-400">
+                <li class="p-6 bg-gray-800 rounded-2xl border border-gray-700 hover:shadow-2xl transition-all duration-300">
+                    <h4 class="text-xl font-bold text-white mb-2">Gate Storage</h4>
+                    <p>Easily store and apply common quantum gates like Identity, Pauli (X, Y, Z), Hadamard, Phase (S), and T-Gate to manipulate qubit states.</p>
+                </li>
+                <li class="p-6 bg-gray-800 rounded-2xl border border-gray-700 hover:shadow-2xl transition-all duration-300">
+                    <h4 class="text-xl font-bold text-white mb-2">State Evolution</h4>
+                    <p>Observe the real-time transformation of your qubit state as you apply different quantum gates, with clear, step-by-step evolution.</p>
+                </li>
+                <li class="p-6 bg-gray-800 rounded-2xl border border-gray-700 hover:shadow-2xl transition-all duration-300">
+                    <h4 class="text-xl font-bold text-white mb-2">Extensible Backend</h4>
+                    <p>The C++ core is designed for future growth, ready to be expanded to handle multi-qubit systems and complex entanglement operations like CNOT.</p>
+                </li>
+                <li class="p-6 bg-gray-800 rounded-2xl border border-gray-700 hover:shadow-2xl transition-all duration-300">
+                    <h4 class="text-xl font-bold text-white mb-2">Interactive GUI</h4>
+                    <p>A planned Node.js frontend will provide a fully interactive, drag-and-drop interface for building and running quantum circuits with ease.</p>
+                </li>
+                <li class="p-6 bg-gray-800 rounded-2xl border border-gray-700 hover:shadow-2xl transition-all duration-300">
+                    <h4 class="text-xl font-bold text-white mb-2">Visualization</h4>
+                    <p>View the quantum state evolution through intuitive visual tools like probability histograms and the iconic Bloch sphere.</p>
+                </li>
+                <li class="p-6 bg-gray-800 rounded-2xl border border-gray-700 hover:shadow-2xl transition-all duration-300">
+                    <h4 class="text-xl font-bold text-white mb-2">Separation of Concerns</h4>
+                    <p>C++ handles the intensive quantum computation, while the Node.js layer focuses solely on user interaction and dynamic visualization.</p>
+                </li>
+            </ul>
+        </section>
+        <!-- Technology Section -->
+        <section id="tech" class="py-20">
+            <h3 class="text-4xl font-bold mb-10 text-center">Technology at a Glance</h3>
+            <div class="flex flex-wrap justify-center gap-8">
+                <div class="p-6 bg-gray-800 rounded-2xl text-center border border-gray-700 shadow-lg transition-all duration-300 hover:scale-105">
+                    <h4 class="text-3xl font-bold text-blue-400">C++</h4>
+                    <p class="mt-2 text-gray-400">High-performance backend for core simulation.</p>
+                </div>
+                <div class="p-6 bg-gray-800 rounded-2xl text-center border border-gray-700 shadow-lg transition-all duration-300 hover:scale-105">
+                    <h4 class="text-3xl font-bold text-green-400">Node.js</h4>
+                    <p class="mt-2 text-gray-400">Interactive frontend for user experience.</p>
+                </div>
+                <div class="p-6 bg-gray-800 rounded-2xl text-center border border-gray-700 shadow-lg transition-all duration-300 hover:scale-105">
+                    <h4 class="text-3xl font-bold text-blue-400">Tailwind CSS</h4>
+                    <p class="mt-2 text-gray-400">Utility-first framework for sleek design.</p>
+                </div>
+                <div class="p-6 bg-gray-800 rounded-2xl text-center border border-gray-700 shadow-lg transition-all duration-300 hover:scale-105">
+                    <h4 class="text-3xl font-bold text-green-400">GitHub</h4>
+                    <p class="mt-2 text-gray-400">Version control and project management.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Contribution Call to Action Section -->
+        <section id="contribute" class="py-20 text-center">
+            <div class="bg-gray-800 p-12 rounded-3xl shadow-xl border-2 border-dashed border-gray-600">
+                <h3 class="text-4xl font-bold text-white">Contribute to the Future of Quantum Education</h3>
+                <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
+                    QubitVerse is an open-source project. Whether you're a C++ wizard, a Node.js developer, or a quantum enthusiast, your contributions are welcome.
+                </p>
+                <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg mt-8 transition-all duration-300 transform hover:scale-105">
+                    View on GitHub
+                </a>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="py-6 text-center text-gray-500 text-sm border-t border-gray-700 mt-12">
+        <p>&copy; 2024 QubitVerse. All rights reserved.</p>
+    </footer>
+</body>
 </html>
+
+
