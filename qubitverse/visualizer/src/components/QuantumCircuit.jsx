@@ -14,7 +14,8 @@ import MeasurementChart from "./MeasurementChart";
 const qubitSpacing = 50; // vertical spacing between qubit lines
 const gateSize = 45; // width/height for single-qubit gate squares
 const canvasMinX = 50; // left bound for gates on the stage
-const canvasMaxX = window.innerWidth - 300 - gateSize; // right bound so gate stays visible
+const canvasMaxX = window.innerWidth-300 - gateSize; // right bound so gate stays visible
+
 
 // =======================
 // GATE LIST
@@ -577,7 +578,7 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
                 listening={true}
             />
             <Line
-                points={[50, y, window.innerWidth - 300, y]}
+                points={[50, y, window.innerWidth ,y]}
                 stroke="black"
                 strokeWidth={2}
             />
@@ -910,6 +911,33 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
 
         setMeasurementHist([]);
     }
+const [Dragging, setDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 100, y: 100 });
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const boxRef = useRef(null);
+
+  const startDrag = (e) => {
+    setDragging(true);
+    setOffset({ x: e.clientX - position.x, y: e.clientY - position.y });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!Dragging) return;
+    setPosition({ x: e.clientX - offset.x, y: e.clientY - offset.y });
+  };
+
+  const handleMouseUp = () => setDragging(false);
+
+  useEffect(() => {
+    if (Dragging) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+    }
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [Dragging, offset]);
 
     return (
         <MathJaxContext>
@@ -935,28 +963,46 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
                 </div>
 
                 {/* Left Menu: single box with gates on top and 3 buttons below */}
-                <div
+                
+                <div  
                     style={{
-                        position: "fixed",
-                        top: "50%",
-                        left: "10px",
-                        width: "200px",
+                       position: "absolute", // important for dragging
+                        left: position.x,
+                        top: position.y,
+                        width: "18%",
+                        height:"350px",
                         border: "3px solid black",
                         borderRadius: "5px",
                         background: "white",
-                        padding: "10px",
-                        marginTop: "60px",
-                        zIndex: 10, // keep above the stage
-                        transform: "translateY(-50%)",
+                        paddingBottom: "10px",
+                        paddingRight: "10px",
+                        paddingLeft: "10px",
+                        zIndex: 100, // keep above the stage
+                        resize: "vertical",
+                        overflowY: "auto",
+                        cursor: Dragging ? "grabbing" : "grab",
+                        scrollbarWidth: "none"
+
                     }}
                 >
+                    <div ref={boxRef} onMouseDown={startDrag}
+                    style={{
+                        position:"sticky",
+                        top:"0",
+                        width:"100%",
+                        background:"#fff",
+                        paddingTop:"10px"
+                        
+                    }}>
                     <h2 className="text-l font-bold text-gray-800" style={{ userSelect: "none", textAlign: "center" }}>Quantum Gates</h2>
+                    </div>
                     {/* Gates box */}
                     <div
                         style={{
                             border: "1px solid black",
                             borderRadius: "5px",
                             width: "100%",
+                            height:"250px",
                             padding: "5px",
                             display: "flex",
                             flexWrap: "wrap",
@@ -964,6 +1010,7 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
                             justifyContent: "space-evenly",
                             marginBottom: "10px",
                             overflowY: "auto",
+                            scrollbarWidth:"none",
                         }}
                     >
                         {gatesList.map((gate, index) => {
@@ -1040,9 +1087,10 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
                 {/* Right Content: depends on active tab */}
                 <div
                     style={{
-                        marginLeft: "220px", // leave space for the left menu
-                        flex: 1,
+                        width:"100%",
+                        flex:1,
                         position: "relative",
+                        float:"right",
                     }}
                 >
                     {/* TOOLTIP */}
@@ -1081,7 +1129,7 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
                             <Stage
                                 key={activeTab}
                                 ref={stageRef}
-                                width={window.innerWidth - 280}
+                                width={window.innerWidth-50}
                                 height={(numQubits + 1) * qubitSpacing}
                                 style={{
                                     border: "3px solid black",
