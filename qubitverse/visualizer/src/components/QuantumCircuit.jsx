@@ -7,6 +7,8 @@ import ProbGraph from "./ProbGraph";
 import HilbertSpaceResult from "./HilbertSpaceResult";
 import { DataSet } from "vis-network/standalone";
 import MeasurementChart from "./MeasurementChart";
+import { evaluate } from "mathjs";
+
 
 // =======================
 // CONFIG CONSTANTS
@@ -205,48 +207,8 @@ const QuantumGate = ({
     );
 };
 
-// =======================
-// CNOT GATE COMPONENT
-// =======================
-const CNOTGate = ({ x, control, target, onDragEnd, onRightClick, order }) => {
-    const yControl = (control + 1) * qubitSpacing;
-    const yTarget = (target + 1) * qubitSpacing;
-    return (
-        <Group
-            draggable
-            x={x}
-            y={0}
-            dragBoundFunc={(pos) => ({
-                x: clamp(pos.x, canvasMinX, canvasMaxX),
-                y: 0,
-            })}
-            onDragEnd={onDragEnd}
-            onContextMenu={(e) => {
-                e.evt.preventDefault();
-                onRightClick();
-            }}
-        >
-            <Line points={[0, yControl, 0, yTarget]} stroke="black" strokeWidth={2} />
-            <Circle x={0} y={yControl} radius={6} fill="black" />
-            <Circle x={0} y={yTarget} radius={10} stroke="black" strokeWidth={2} />
-            <Line points={[-6, yTarget, 6, yTarget]} stroke="black" strokeWidth={2} />
-            <Line
-                points={[0, yTarget - 6, 0, yTarget + 6]}
-                stroke="black"
-                strokeWidth={2}
-            />
-            {order !== undefined && (
-                <Text
-                    text={String(order)}
-                    fontSize={12}
-                    fill="red"
-                    x={5}
-                    y={(yControl + yTarget) / 2 - 5}
-                />
-            )}
-        </Group>
-    );
-};
+
+
 
 // =======================
 // CZ GATE COMPONENT
@@ -503,6 +465,55 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
     const [activeTab, setActiveTab] = useState("Circuit");
 
     const stageRef = useRef(null);
+
+    const [circuit, setCircuit] = useState([]);
+
+    const createGate = (type, id, order) => {
+        switch (type) {
+            case "Rx":
+            case "Ry":
+            case "Rz":
+             return { id, type, order, params: { theta: 0 } }; 
+            case "U3":
+                return { id, type, order, params: { theta: 0, phi: 0, lambda: 0 } };
+            default:
+                return { id, type, order };
+        }
+        };
+
+//only for testing
+        const addTestGates = () => {
+        setCircuit([
+            createGate("Rx", "rx1", 1),
+            createGate("Ry", "ry1", 2),
+            createGate("Rz", "rz1", 3),
+            createGate("U3", "u31", 4),
+        ]);
+        };
+
+
+
+    const handleParamChange = (gateId, paramName, value) => {
+    let radianValue = value;
+
+    try {
+      // Convert user input into radians
+      radianValue = evaluate(value, { pi: Math.PI });
+    } catch (err) {
+      console.error("Invalid angle expression:", value);
+      alert("Invalid angle expression! Please enter something like pi/2 or 1.57");
+      return;
+    }
+
+    // Store radians
+    setCircuit((prev) =>
+      prev.map((g) =>
+        g.id === gateId
+          ? { ...g, params: { ...g.params, [paramName]: evaluate(value) } }
+          : g
+      )
+    );
+    }
 
     // =======================
     // ORDERING: Combined ordering for all gates on a qubit line
@@ -1023,6 +1034,75 @@ const [Dragging, setDragging] = useState(false);
                             const defaultBackground = isActive ? "white" : "#eee";
 
                             return (
+                                <>
+                                <Group>
+                                    {circuit.map((gate) => (
+                                        <QuantumGate
+                                        key={gate.id}
+                                        {...gate}
+                                        onRightClick={() => console.log("Right click")}
+                                        onDragEnd={() => console.log("Drag end")}
+                                        />
+                                    ))}
+                                </Group>
+                                {/* ====== Parameters ====== */}
+                                <div className="gate-params-panel" style={{ marginTop: "20px" }}>
+                            
+                                    {circuit.map((gate) => {
+                                    if (!gate.params) return null;
+
+                                    return (
+                                        <div key={gate.id} style={{ marginBottom: "10px" }}>
+                                        <h4>{gate.type} Gate</h4>
+
+                                        {/* input */}
+                                        {"theta" in gate.params && (
+                                            <label>
+                                            θ:{" "}
+                                            <input
+                                                type="text"
+                                                value={gate.params.theta}
+                                                onChange={(e) =>
+                                                handleParamChange(gate.id, "theta", e.target.value)
+                                                }
+                                                placeholder="e.g. pi/2"
+                                            />
+                                            </label>
+                                        )}
+
+                                        {/* input (for U3 gate) */}
+                                        {"phi" in gate.params && (
+                                            <label style={{ marginLeft: "10px" }}>
+                                            φ:{" "}
+                                            <input
+                                                type="text"
+                                                value={gate.params.phi}
+                                                onChange={(e) =>
+                                                handleParamChange(gate.id, "phi", e.target.value)
+                                                }
+                                                placeholder="e.g. pi/4"
+                                            />
+                                            </label>
+                                        )}
+
+                                        {/* lambda input (for U3 gate) */}
+                                        {"lambda" in gate.params && (
+                                            <label style={{ marginLeft: "10px" }}>
+                                            λ:{" "}
+                                            <input
+                                                type="text"
+                                                value={gate.params.lambda}
+                                                onChange={(e) =>
+                                                handleParamChange(gate.id, "lambda", e.target.value)
+                                                }
+                                                placeholder="e.g. pi"
+                                            />
+                                            </label>
+                                        )}
+                                        </div>
+                                    );
+                                    })}
+                                </div>
                                 <div
                                     key={index}
                                     style={{
@@ -1063,6 +1143,7 @@ const [Dragging, setDragging] = useState(false);
                                 >
                                     {gate}
                                 </div>
+                            </>
                             );
                         })}
                     </div>
