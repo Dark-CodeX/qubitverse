@@ -1,161 +1,150 @@
-# ⚛️ Quantum Gate Simulator & GUI Visualizer
+⚛️ Quantum Gate Simulator & GUI Visualizer
 
-A simple **Quantum Gate Simulator** implemented in **C++**, paired with a **Node.js-based GUI Visualizer** for an interactive experience.  
+A powerful and educational Quantum Gate Simulator implemented in C++, with an interactive Node.js-based GUI for visualizing quantum circuits.
+This project helps learners and researchers experiment with quantum mechanics in an accessible and visual way.
 
-The simulator allows you to **store and apply various quantum gates** to qubit states and provides a **visual interface** to see the results of quantum operations in action.  
+📖 Overview
 
----
+This project is divided into two main components:
 
-## 📖 Overview
+🔹 1. Quantum Gate Simulator (C++)
 
-This project is divided into two main parts:
+Implements quantum mechanics concepts:
 
-### 🔹 Quantum Gate Simulator (C++)
-- Implements basic quantum mechanics concepts such as **qubit state representation** and **quantum gate operations**.  
-- Provides a set of common quantum gates:
-  - Identity
-  - Pauli-X, Pauli-Y, Pauli-Z
-  - Hadamard
-  - Phase (S)
-  - T-Gate
-- Uses **manual matrix operations** (without external libraries like Eigen) to evolve quantum states.  
+Qubit state representation
 
-### 🔹 GUI Visualizer (Node.js)
-- A **frontend interface** that communicates with the C++ simulator.  
-- Allows users to **drag and drop gates** onto qubits, build circuits, and see the **resulting state evolution**.  
-- Visualizes quantum states using:
-  - Bloch spheres  
-  - Probability histograms  
+Quantum gate matrix operations
 
----
+Supports common quantum gates:
 
-## ✨ Features
+Identity (I), Pauli-X, Pauli-Y, Pauli-Z
 
-- **Quantum Gate Storage** – Manage and apply common gates easily.  
-- **State Evolution** – Apply operations on qubits and observe transformations.  
-- **Extensible Backend** – Future support for **multi-qubit systems** and advanced gates (like CNOT).  
-- **Interactive GUI** – User-friendly Node.js frontend with drag-and-drop interface.  
-- **Separation of Concerns** – C++ handles computation, Node.js handles visualization.  
+Hadamard (H)
 
----
+Phase (S)
 
-## ⚙️ Installation & Setup
+T-Gate
 
-### 🔧 Prerequisites
-- **C++ Compiler** (e.g., `g++`)
-- **Node.js** (>= 16.0.0)
-- **npm** (comes with Node.js)
+Uses manual matrix operations (no Eigen).
 
-### 🖥️ Backend (C++ Simulator)
-```bash
-# Navigate to the backend folder
-cd backend
+Extensible for multi-qubit systems and advanced gates (CNOT, SWAP, Toffoli).
 
-# Compile the simulator
-g++ main.cpp -o simulator
+🔹 2. GUI Visualizer (Node.js)
 
-# Run the simulator
-./simulator
-```
+Interactive drag-and-drop circuit builder.
 
-### 🌐 Frontend (Node.js GUI)
-```bash
-# Navigate to the frontend folder
-cd frontend
+Real-time communication with the C++ backend.
 
-# Install dependencies
+Visualization tools:
+
+Bloch sphere 🌐
+
+Probability histograms 📊
+
+Makes quantum learning intuitive and engaging.
+
+✨ Features
+
+🎯 Quantum Gate Storage – Store & manage reusable gates
+
+🔄 State Evolution – Apply gates to qubits and see transformations
+
+🧩 Extensible Backend – Future support for multi-qubit & controlled gates
+
+🖥️ Interactive GUI – Real-time circuit visualization
+
+🧹 Separation of Concerns –
+
+C++ → Quantum computation
+
+Node.js → Visualization & UI
+
+🛠️ Tech Stack
+
+C++17 → Quantum simulator backend
+
+Node.js (v16+) → GUI backend & API
+
+JavaScript (ES6+) → Frontend logic
+
+HTML + CSS + D3.js → Visualization
+
+🚀 Getting Started
+🔧 Prerequisites
+
+C++17 or later
+
+Node.js (16+)
+
+npm
+
+📥 Installation
+# Clone repo
+git clone https://github.com/<your-username>/qubitverse.git
+cd qubitverse
+
+
+1️⃣ Build C++ Backend
+
+cd simulator
+g++ simulator.cpp -o simulator
+
+
+2️⃣ Run GUI
+
+cd ../visualizer
 npm install
+npm run dev
 
-# Start the GUI
-npm start
-```
 
-The frontend will connect with the backend to visualize quantum gate operations.  
+Open http://localhost:3000
+ in your browser 🚀
 
----
-
-## 🚀 Usage Example
-
-1. Start the **C++ backend** (`./simulator`).  
-2. Run the **Node.js GUI** (`npm start`).  
-3. Open the interface in your browser (default: `http://localhost:3000`).  
-4. Drag and drop gates onto qubits, then visualize state changes.  
-
-Example workflow:
-- Initialize a |0⟩ qubit  
-- Apply a Hadamard gate → get a superposition state  
-- Apply a Pauli-Z gate → observe phase flip on the Bloch sphere  
-
----
-
-## 🤝 Contribution Guidelines
-
-We welcome contributions! To get started:  
-
-1. **Fork** the repository  
-2. **Create a new branch** for your feature/bugfix  
-3. **Commit** your changes with clear messages  
-4. **Push** your branch and submit a **Pull Request (PR)**  
-
-Please ensure:
-- Code is well-documented  
-- New features include usage examples or tests  
-
----
-
-## 📂 Project Structure
-```
+📂 Project Structure
 qubitverse/
-│── .github/workflows/
-│   └── cmake-single-platform.yml
-│
-│── qubitverse/
-│   ├── simulator/            # C++ quantum gate simulator
-│   │   ├── dep/
-│   │   ├── gates/
-│   │   ├── lexer/
-│   │   ├── parser/
-│   │   └── simulator/
-│   │
-│   └── visualizer/           # Node.js GUI visualizer
-│       ├── public/
-│       ├── src/
-│       ├── eslint.config.js
-│       ├── index.html
-│       ├── package.json
-│       └── vite.config.js
-│
-│── .clang-format
-│── .clang-tidy
-│── .clangd
-│── .gitignore
-│── CMakeLists.txt
-│── compile.rc
-│── CONTRIBUTING.md
-│── LICENSE
+│── simulator/         # C++ quantum simulator
+│── visualizer/        # Node.js frontend (GUI)
+│── docs/              # Documentation
 │── README.md
-```
+│── LICENSE
+│── CONTRIBUTING.md
+│── CODE_OF_CONDUCT.md
 
----
+🗺️ Roadmap
 
-## 📌 Roadmap
-- [ ] Add **multi-qubit support**  
-- [ ] Implement **CNOT and controlled gates**  
-- [ ] Improve **visualization with real-time animations**  
-- [ ] Add **export/import** of circuits  
-- [ ] Provide a **hosted live demo**  
+ Multi-qubit support
 
----
+ Controlled gates (CNOT, SWAP, Toffoli)
 
-## 📜 License
-This project is licensed under the **MIT License**.  
-See the [LICENSE](https://github.com/Dark-CodeX/qubitverse/blob/main/LICENSE) file for details.  
+ Entanglement visualization
 
----
+ Export/import circuits
 
-## 🌟 Acknowledgments
-- Inspired by basic concepts of **Quantum Computing**.  
-- Educational references: Nielsen & Chuang – *Quantum Computation and Quantum Information*.  
-- Open-source tools and the developer community.  
+ Hosted demo
 
----
+🤝 Contributing
+
+We ❤️ contributions!
+
+Fork repo
+
+Create branch (feature/my-feature)
+
+Commit changes
+
+Submit PR 🎉
+
+👉 Read CONTRIBUTING.md
+ & CODE_OF_CONDUCT.md
+
+📜 License
+
+Licensed under the MIT License.
+
+🙌 Acknowledgments
+
+Inspired by Quantum Computing principles
+
+References: Nielsen & Chuang – Quantum Computation and Quantum Information
+
+Inspired by IBM Qiskit & Quantum Playground
