@@ -11,7 +11,11 @@ function extractCircuitData(gates, cnotGates, czGates, swapGates, measureNthQ, n
             type: "single",
             gateType: (gate.text === "V†" ? "adjV" : gate.text), // X, Y, H, etc.
             qubit: qubitIndex,
-            theta: Object.hasOwn(gate, "params") === false ? -1 : gate.params.theta,
+            params: {
+                theta: gate.params.theta ?? 0,
+                phi: gate.params.phi ?? 0,
+                lambda: gate.params.lambda ?? 0,
+            },
             position: gate.x,
         };
     });
@@ -69,14 +73,23 @@ function extractCircuitData(gates, cnotGates, czGates, swapGates, measureNthQ, n
 }
 
 function quantum_encode(cktData, feature) {
-    let s = feature + "n:" + cktData.numQubits + "\n";
+    let s = "";
     for (let i = 0; i < cktData.gates.length; i++) {
-        for (const key in cktData.gates[i]) {
-            if (Object.hasOwn(cktData.gates[i], key)) {
-                s += key + ":" + cktData.gates[i][key] + "\n";
+      const gate = cktData.gates[i];
+      for (const key in gate) {
+        if (Object.hasOwn(gate, key)) {
+          if (key === "params") {
+            for (const p in gate.params) {
+              if (Object.hasOwn(gate.params, p)) {
+                s += p + ":" + gate.params[p] + "\n";
+              }
             }
+          } else {
+            s += key + ":" + gate[key] + "\n";
+          }
         }
-        s += "@\n";
+      }
+      s += "@\n"; 
     }
     return s;
 }
