@@ -18,7 +18,7 @@ namespace simulator
       public:
         using complex = std::complex<double>;
 
-      private:
+      public:
         enum gate_type : unsigned char
         {
             IDENTITY,            // Identity gate: leaves the qubit unchanged.
@@ -38,6 +38,8 @@ namespace simulator
             CONTROLLED_Z,        // Controlled-Z gate: applies a phase flip conditional on the control.
             SWAP_GATE            // SWAP gate: exchanges the states of two qubits.
         };
+
+      private:
 
         struct qgate_2x2
         {
@@ -60,6 +62,18 @@ namespace simulator
         static qgate_2x2 &get_theta_gate(qgate_2x2 &__g, const gate_type &__g_type, const double &__theta);
         static void apply_theta_gate(complex *&__s, const std::size_t &_len, const gate_type &__g_type, const double &__theta, const std::size_t &qubit_target);
         static void apply_2qubit_gate(complex *&__s, const std::size_t &_len, const gate_type &__g_type, const std::size_t &q_control, const std::size_t &q_target);
+
+      public:
+        // Public static functions for external access
+        static void apply_predefined_gate_public(complex *&__s, const std::size_t &_len, const gate_type &__g_type, const std::size_t &qubit_target) {
+            apply_predefined_gate(__s, _len, __g_type, qubit_target);
+        }
+        static void apply_theta_gate_public(complex *&__s, const std::size_t &_len, const gate_type &__g_type, const double &__theta, const std::size_t &qubit_target) {
+            apply_theta_gate(__s, _len, __g_type, __theta, qubit_target);
+        }
+        static void apply_2qubit_gate_public(complex *&__s, const std::size_t &_len, const gate_type &__g_type, const std::size_t &q_control, const std::size_t &q_target) {
+            apply_2qubit_gate(__s, _len, __g_type, q_control, q_target);
+        }
 
         // a vector-space (hilbert-space) defined over complex numbers C
         // 1 << M_no_qubits translates to 2^N, where N is the number of qubit the hilbert-space(quantum-system) supports

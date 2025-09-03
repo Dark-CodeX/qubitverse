@@ -39,6 +39,11 @@ const gatesList = [
     "CNOT",
     "CZ",
     "SWAP",
+    "CCX",
+    "CSWAP",
+    "MCX",
+    "MCZ",
+    "QFT",
     "M"
 ];
 
@@ -124,6 +129,31 @@ const gateTooltips = {
         desc: "Measure",
         latex:
             "$$\\text{Measure }n^{\\text{th}}\\text{ Qubit}$$"
+    },
+    CCX: {
+        desc: "Toffoli Gate (CCX)",
+        latex:
+            "$$CCX = \\begin{pmatrix}1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\\\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\\\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\end{pmatrix}$$"
+    },
+    CSWAP: {
+        desc: "Fredkin Gate (CSWAP)",
+        latex:
+            "$$CSWAP = \\begin{pmatrix}1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\\\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\\\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\end{pmatrix}$$"
+    },
+    MCX: {
+        desc: "Multi-Controlled X Gate",
+        latex:
+            "$$\\text{Multi-Controlled X: Applies X when all controls are }|1\\rangle$$"
+    },
+    MCZ: {
+        desc: "Multi-Controlled Z Gate",
+        latex:
+            "$$\\text{Multi-Controlled Z: Applies phase }(-1)\\text{ when all controls are }|1\\rangle$$"
+    },
+    QFT: {
+        desc: "Quantum Fourier Transform",
+        latex:
+            "$$QFT = \\frac{1}{\\sqrt{N}} \\sum_{j,k=0}^{N-1} e^{2\\pi i j k / N} |k\\rangle\\langle j|$$"
     }
 };
 

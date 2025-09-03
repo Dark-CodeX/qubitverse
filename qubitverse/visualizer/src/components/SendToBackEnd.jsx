@@ -50,6 +50,19 @@ function extractCircuitData(gates, cnotGates, czGates, swapGates, measureNthQ, n
         };
     });
 
+    // Process Toffoli (CCX) gates - placeholder for now
+    const processedToffoliGates = [];
+
+    // Process Fredkin (CSWAP) gates - placeholder for now
+    const processedFredkinGates = [];
+
+    // Process Multi-controlled gates - placeholder for now
+    const processedMCXGates = [];
+    const processedMCZGates = [];
+
+    // Process QFT gates - placeholder for now
+    const processedQFTGates = [];
+
     // Process Measurement
     const measureNthQubits = measureNthQ.map((gate) => {
         const qubitIndex = Math.round((gate.y + 20) / 50) - 1; // 20 is half of gateSize, 50 is qubitSpacing
@@ -61,7 +74,7 @@ function extractCircuitData(gates, cnotGates, czGates, swapGates, measureNthQ, n
     });
 
     // Combine all gates and sort by position (x coordinate)
-    const allGates = [...processedGates, ...processedCnotGates, ...processedCZGates, ...processedSwapGates, ...measureNthQubits].sort(
+    const allGates = [...processedGates, ...processedCnotGates, ...processedCZGates, ...processedSwapGates, ...processedToffoliGates, ...processedFredkinGates, ...processedMCXGates, ...processedMCZGates, ...processedQFTGates, ...measureNthQubits].sort(
         (a, b) => a.position - b.position
     );
 
