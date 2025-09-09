@@ -17,7 +17,11 @@ set(SOURCES
     ./qubitverse/simulator/lexer/lexer.cc
     ./qubitverse/simulator/parser/parser.cc
     ./qubitverse/simulator/gates/gates.cc
+    ./qubitverse/simulator/gates/advanced_gates.cc
 )
+
+# Add test executable
+add_executable(grover_test ./qubitverse/simulator/grover_test.cc)
 
 # Create the executable target
 add_executable(${PROJECT_NAME} ${SOURCES})

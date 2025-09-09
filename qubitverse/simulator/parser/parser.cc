@@ -98,6 +98,118 @@ namespace simulator
                     if (toks[i].M_type == token_type::SEP)
                         i++;
                 }
+                else if (toks[i].M_val == "toffoli")
+                {
+                    i++; // skips toffoli
+                    std::size_t ctrl1, ctrl2, target;
+
+                    i += 2; // skips control1
+                    ctrl1 = std::stoul(toks[i++].M_val);
+                    i += 2; // skips control2
+                    ctrl2 = std::stoul(toks[i++].M_val);
+                    i += 2; // skips target
+                    target = std::stoul(toks[i++].M_val);
+                    i += 3; // skips position and its value
+
+                    this->M_gatelist.emplace_back(new ast_toffoli_gate_node(ctrl1, ctrl2, target));
+                    if (toks[i].M_type == token_type::SEP)
+                        i++;
+                }
+                else if (toks[i].M_val == "fredkin")
+                {
+                    i++; // skips fredkin
+                    std::size_t ctrl, target1, target2;
+
+                    i += 2; // skips control
+                    ctrl = std::stoul(toks[i++].M_val);
+                    i += 2; // skips target1
+                    target1 = std::stoul(toks[i++].M_val);
+                    i += 2; // skips target2
+                    target2 = std::stoul(toks[i++].M_val);
+                    i += 3; // skips position and its value
+
+                    this->M_gatelist.emplace_back(new ast_fredkin_gate_node(ctrl, target1, target2));
+                    if (toks[i].M_type == token_type::SEP)
+                        i++;
+                }
+                else if (toks[i].M_val == "mcnot")
+                {
+                    i++; // skips mcnot
+                    std::vector<std::size_t> controls;
+                    std::size_t target;
+
+                    i += 2; // skips controls
+                    // Parse control qubits (comma-separated)
+                    std::string controls_str = toks[i++].M_val;
+                    std::size_t pos = 0;
+                    std::string token;
+                    while ((pos = controls_str.find(',')) != std::string::npos) {
+                        token = controls_str.substr(0, pos);
+                        controls.push_back(std::stoul(token));
+                        controls_str.erase(0, pos + 1);
+                    }
+                    controls.push_back(std::stoul(controls_str));
+
+                    i += 2; // skips target
+                    target = std::stoul(toks[i++].M_val);
+                    i += 3; // skips position and its value
+
+                    this->M_gatelist.emplace_back(new ast_multi_controlled_x_gate_node(std::move(controls), target));
+                    if (toks[i].M_type == token_type::SEP)
+                        i++;
+                }
+                else if (toks[i].M_val == "mcz")
+                {
+                    i++; // skips mcz
+                    std::vector<std::size_t> controls;
+                    std::size_t target;
+
+                    i += 2; // skips controls
+                    // Parse control qubits (comma-separated)
+                    std::string controls_str = toks[i++].M_val;
+                    std::size_t pos = 0;
+                    std::string token;
+                    while ((pos = controls_str.find(',')) != std::string::npos) {
+                        token = controls_str.substr(0, pos);
+                        controls.push_back(std::stoul(token));
+                        controls_str.erase(0, pos + 1);
+                    }
+                    controls.push_back(std::stoul(controls_str));
+
+                    i += 2; // skips target
+                    target = std::stoul(toks[i++].M_val);
+                    i += 3; // skips position and its value
+
+                    this->M_gatelist.emplace_back(new ast_multi_controlled_z_gate_node(std::move(controls), target));
+                    if (toks[i].M_type == token_type::SEP)
+                        i++;
+                }
+                else if (toks[i].M_val == "qft")
+                {
+                    i++; // skips qft
+                    std::vector<std::size_t> qubits;
+                    bool inverse = false;
+
+                    i += 2; // skips qubits
+                    // Parse qubits (comma-separated)
+                    std::string qubits_str = toks[i++].M_val;
+                    std::size_t pos = 0;
+                    std::string token;
+                    while ((pos = qubits_str.find(',')) != std::string::npos) {
+                        token = qubits_str.substr(0, pos);
+                        qubits.push_back(std::stoul(token));
+                        qubits_str.erase(0, pos + 1);
+                    }
+                    qubits.push_back(std::stoul(qubits_str));
+
+                    i += 2; // skips inverse
+                    inverse = (toks[i++].M_val == "true");
+                    i += 3; // skips position and its value
+
+                    this->M_gatelist.emplace_back(new ast_qft_gate_node(std::move(qubits), inverse));
+                    if (toks[i].M_type == token_type::SEP)
+                        i++;
+                }
                 else
                     return false;
             }
@@ -150,6 +262,52 @@ namespace simulator
                 std::printf("SWAP_GATE: [QUBIT1: %zu, QUBIT2: %zu]\n",
                             casted->M_qubit1,
                             casted->M_qubit2);
+            }
+            else if (i->get_gate_type() == gate_type::TOFFOLI_GATE)
+            {
+                auto *casted = dynamic_cast<ast_toffoli_gate_node *>(i.get());
+                std::printf("TOFFOLI_GATE: [CTRL1: %zu, CTRL2: %zu, TARGET: %zu]\n",
+                            casted->M_ctrl1,
+                            casted->M_ctrl2,
+                            casted->M_target);
+            }
+            else if (i->get_gate_type() == gate_type::FREDKIN_GATE)
+            {
+                auto *casted = dynamic_cast<ast_fredkin_gate_node *>(i.get());
+                std::printf("FREDKIN_GATE: [CTRL: %zu, TARGET1: %zu, TARGET2: %zu]\n",
+                            casted->M_ctrl,
+                            casted->M_target1,
+                            casted->M_target2);
+            }
+            else if (i->get_gate_type() == gate_type::MULTI_CONTROLLED_X_GATE)
+            {
+                auto *casted = dynamic_cast<ast_multi_controlled_x_gate_node *>(i.get());
+                std::printf("MULTI_CONTROLLED_X_GATE: [CONTROLS: ");
+                for (size_t j = 0; j < casted->M_controls.size(); ++j) {
+                    std::printf("%zu", casted->M_controls[j]);
+                    if (j < casted->M_controls.size() - 1) std::printf(",");
+                }
+                std::printf(", TARGET: %zu]\n", casted->M_target);
+            }
+            else if (i->get_gate_type() == gate_type::MULTI_CONTROLLED_Z_GATE)
+            {
+                auto *casted = dynamic_cast<ast_multi_controlled_z_gate_node *>(i.get());
+                std::printf("MULTI_CONTROLLED_Z_GATE: [CONTROLS: ");
+                for (size_t j = 0; j < casted->M_controls.size(); ++j) {
+                    std::printf("%zu", casted->M_controls[j]);
+                    if (j < casted->M_controls.size() - 1) std::printf(",");
+                }
+                std::printf(", TARGET: %zu]\n", casted->M_target);
+            }
+            else if (i->get_gate_type() == gate_type::QFT_GATE)
+            {
+                auto *casted = dynamic_cast<ast_qft_gate_node *>(i.get());
+                std::printf("QFT_GATE: [QUBITS: ");
+                for (size_t j = 0; j < casted->M_qubits.size(); ++j) {
+                    std::printf("%zu", casted->M_qubits[j]);
+                    if (j < casted->M_qubits.size() - 1) std::printf(",");
+                }
+                std::printf(", INVERSE: %s]\n", casted->M_inverse ? "true" : "false");
             }
         }
     }
