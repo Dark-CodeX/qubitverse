@@ -1,5 +1,13 @@
 {
   "dependencies": {
-    "three": "^0.179.1"
+    "react": "^18.x",
+    "react-dom": "^18.x",
+    "three": "^0.179.1"   
+  },
+  "devDependencies": {
+    "vite": "^4.x",
+    "tailwindcss": "^3.x",
+    "postcss": "^8.x",
+    "autoprefixer": "^10.x"
   }
 }

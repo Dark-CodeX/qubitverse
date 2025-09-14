@@ -6,9 +6,12 @@
 
 #ifndef SIMULATOR_GATES
 #define SIMULATOR_GATES
+#define _USE_MATH_DEFINES
+
 
 #include <complex>
 #include <random>
+
 #include <cmath> // for sqrt and M_PI
 
 namespace simulator

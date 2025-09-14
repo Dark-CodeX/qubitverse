@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../quantum"
+		},
+		{
+			"name": "qubitverse",
+			"path": "../../../.."
+		}
+	],
+	"settings": {}
+}

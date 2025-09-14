@@ -1,1 +1,62 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@tailwind utilities;
+
+
+:root {
+  --color-primary-darkbg: #020204;
+  --color-nav-darkbg: #090A0E;
+  --color-primary-glow-color: rgba(48, 225, 225, 0.6);
+  --color-secondary-darkbg: #0D5959;
+  --color-primary-dark-text-green: #00ff2b;
+  --color-primary-dark-border-green: #2ECC71;
+  --color-primary-dark-button-green: #27AE60;
+  --color-primary-dark-neon-white:#F8F8FF;
+  --color-primary-dark-neon-cyan:rgba(48, 225, 225);
+  --color-primary-dark-neon-red:#ff073a;
+  --color-primary-dark-neon-blue:#228cff;
+  --color-primary-dark-neon-violet:#ff00e6;
+  --color-primary-dark-neon-yellow:#dfff00;
+  --color-primary-dark-neon-orange: #ff6f00;
+
+
+}
+
+
+@theme{
+    --color-primary-darkbg: #020204;
+    --color-nav-darkbg:#090A0E;
+    --color-primary-glow-color: rgba(48, 225, 225, 0.6);
+    --color-secondary-darkbg: 		#0D5959 ;
+    --color-primary-dark-text-green:#00ff2b;
+    --color-primary-dark-border-green:#2ECC71;
+    --color-primary-dark-button-green:#27AE60;
+  --color-primary-dark-neon-white:#F8F8FF;
+  --color-primary-dark-neon-cyan:rgba(48, 225, 225);
+    --color-primary-dark-neon-red:#ff073a;
+  --color-primary-dark-neon-blue:#228cff;
+  --color-primary-dark-neon-violet:#ff00e6;
+  --color-primary-dark-neon-yellow:#dfff00;
+  --color-primary-dark-neon-orange: #ff6f00;
+  
+
+
+}
+
+/* https://www.color-hex.com/color-palette/61235 */
+
+
+/* @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@tailwind utilities;
+
+@theme{
+    --color-primary-darkbg: #0B0C10;
+    --color-nav-darkbg:#090A0E;
+    ----color-primary-glow-color: rgba(48, 225, 225, 0.6);
+    --color-secondary-darkbg: 	#010122 ;
+} */
+
+/* https://www.color-hex.com/color-palette/61235 */
