@@ -169,6 +169,7 @@ std::string get_quantum_info(const std::size_t &nQ, const std::vector<std::uniqu
             ss << i << "=" << vec_prob[i] << "\n";
         }
         ret_val.append(ss.str());
+        delete[] vec_prob;
         return ret_val;
     }
     else if (operation == '2')
@@ -189,6 +190,7 @@ std::string get_quantum_info(const std::size_t &nQ, const std::vector<std::uniqu
            << qsys.measure() << "\n";
 
         ret_val.append(ss.str());
+        delete[] vec_prob;
         return ret_val;
     }
 }
