@@ -211,7 +211,7 @@ int main(void)
                 std::string reply = get_quantum_info(parser.get_no_qubits(), parser.get(), feature);
 
                 // Set CORS header
-                res.set_header("Access-Control-Allow-Origin", "http://localhost:5173");
+                res.set_header("Access-Control-Allow-Origin", "https://qubitverse-lpa4.onrender.com");
 
                 // Set the response content as plain text
                 res.set_content(reply, "text/plain");

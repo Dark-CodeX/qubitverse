@@ -84,7 +84,7 @@ function quantum_encode(cktData, feature) {
 export function SendToBackEnd_Calculate({ gates, cnotGates, czGates, swapGates, measureNthQ, numQubits, setLog, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist, funcAddQubits, funcRemoveQubits }) {
     const request_backend = async (dat) => {
         try {
-            const response = await fetch('http://localhost:9080/api/endpoint', {
+            const response = await fetch('https://cppqubitverse.onrender.com/api/endpoint', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'text/plain',
