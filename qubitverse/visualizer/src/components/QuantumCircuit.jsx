@@ -5,7 +5,6 @@ import SendToBackEnd_Calculate from "./SendToBackEnd";
 import { Button } from "./ui/button";
 import ProbGraph from "./ProbGraph";
 import HilbertSpaceResult from "./HilbertSpaceResult";
-import { DataSet } from "vis-network/standalone";
 import MeasurementChart from "./MeasurementChart";
 
 // =======================
@@ -1174,7 +1173,11 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
                             </Stage>
                         </>
                     ) : activeTab === "Result" ? (
-                        <HilbertSpaceResult nodes={new DataSet(verticesResultGraph)} edges={new DataSet(edgesResultGraph)} measuredValue={measuredValue} />
+                        <HilbertSpaceResult
+                            nodes={verticesResultGraph}
+                            edges={edgesResultGraph}
+                            measuredValue={measuredValue}
+                        />
                     ) : activeTab === "Measurement" ? (
                         <MeasurementChart hist={measurementHist} />
                     ) : activeTab === "Probability" ? (
