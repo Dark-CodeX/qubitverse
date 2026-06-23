@@ -4,7 +4,7 @@ project(qubitverse)
 
 # Set compiler options
 set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG -march=native -mtune=native -masm=intel -funroll-all-loops -s")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG -march=native -mtune=native -masm=intel -funroll-all-loops -s -pthread")
 
 # Add include directories
 include_directories(
