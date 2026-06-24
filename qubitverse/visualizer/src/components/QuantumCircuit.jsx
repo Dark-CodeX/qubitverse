@@ -4,6 +4,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import SendToBackEnd_Calculate from "./SendToBackEnd";
 import { Button } from "./ui/button";
 import ProbGraph from "./ProbGraph";
+import BlochSphereGraph from "./BlochSphereGraph";
 import HilbertSpaceResult from "./HilbertSpaceResult";
 import MeasurementChart from "./MeasurementChart";
 
@@ -439,6 +440,8 @@ const MeasureNthComponent = ({
 const QuantumCircuit = ({ numQubits, setNumQubits }) => {
     // Result or Log Data from the Backend
     const [resultData, setResultData] = useState(null);
+    // Bloch Data for BlochSphereGraph
+    const [blochData, setBlochData] = useState([]);
     // Probs Data for BarGraph
     const [probData, setProbData] = useState([]);
     // Result Graph Edges
@@ -915,7 +918,7 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
             <div className="p-4">
                 {/* Tab Buttons */}
                 <div className="sticky top-0 left-[220px] right-0 bg-white z-50 flex space-x-4 border-b mb-4 py-2 px-4">
-                    {["Circuit", "Result", "Measurement", "Probability", "Log"].map((tab) => (
+                    {["Circuit", "Result", "Measurement", "Probability", "Bloch Sphere", "Log"].map((tab) => (
                         <button
                             key={tab}
                             className={`p-2 transition-all ${activeTab === tab
@@ -1027,6 +1030,7 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
                         measureNthQ={measureNthQubit}
                         numQubits={numQubits}
                         setLog={setResultData}
+                        setBlochData={setBlochData}
                         setProbData={setProbData}
                         setEdgesResultGraph={setEdgesResultGraph}
                         setVerticesResultGraph={setVerticesResultGraph}
@@ -1183,6 +1187,8 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
                     ) : activeTab === "Probability" ? (
                         // an interactive graph
                         <ProbGraph probs={probData} />
+                    ) : activeTab === "Bloch Sphere" ? (
+                        <BlochSphereGraph  no_qubits={nQubits} blochData={blochData} />
                     ) : activeTab === "Log" ? (
                         <textarea
                             style={{

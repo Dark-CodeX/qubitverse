@@ -21,8 +21,8 @@ const ParseProbData = (lines, i) => {
     return { name: tup[0], value: Number(tup[1]) };
 }
 
-export const ParseResultData = ({ data, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist }) => {
-    var vertices = [], edges = [], measured = NaN, prob = [], isMeasureSystem = false;
+export const ParseResultData = ({ data, setBlochData, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist }) => {
+    var vertices = [], edges = [], measured = NaN, prob = [], blochData = [], isMeasureSystem = false;
     const lines = data.split('\n');
 
     for (let i = 0, j = 0; i < lines.length; i++) {
@@ -54,6 +54,20 @@ export const ParseResultData = ({ data, setProbData, setEdgesResultGraph, setVer
             i++; // skip prob
             while (/^[ a-z]+$/i.test(lines[i]) === false && lines[i] !== "") {
                 prob.push(ParseProbData(lines, i));
+                i++;
+            }
+            i--;
+        }
+        else if (lines[i] === "bloch") {
+            i++; // skip bloch
+            while (/^[ a-z]+$/i.test(lines[i]) === false && lines[i] !== "") {
+                const tup = ParseValueLine(lines[i]);
+                blochData.push({
+                    qubit: tup[0],
+                    x: Number(tup[1].split(",")[0]),
+                    y: Number(tup[1].split(",")[1]),
+                    z: Number(tup[1].split(",")[2])
+                });
                 i++;
             }
             i--;
@@ -110,6 +124,7 @@ export const ParseResultData = ({ data, setProbData, setEdgesResultGraph, setVer
     setEdgesResultGraph(edges);
     setVerticesResultGraph(vertices);
     setMeasuredValue(measured);
+    setBlochData(blochData);
 };
 
 export default ParseResultData;

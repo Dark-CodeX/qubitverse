@@ -81,7 +81,7 @@ function quantum_encode(cktData, feature) {
     return s;
 }
 
-export function SendToBackEnd_Calculate({ gates, cnotGates, czGates, swapGates, measureNthQ, numQubits, setLog, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist, funcAddQubits, funcRemoveQubits }) {
+export function SendToBackEnd_Calculate({ gates, cnotGates, czGates, swapGates, measureNthQ, numQubits, setLog, setBlochData, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist, funcAddQubits, funcRemoveQubits }) {
     const request_backend = async (dat) => {
         try {
             const response = await fetch('https://cppqubitverse.onrender.com/api/endpoint', {
@@ -101,7 +101,7 @@ export function SendToBackEnd_Calculate({ gates, cnotGates, czGates, swapGates, 
     const sendCalculate = () => {
         request_backend(
             quantum_encode(extractCircuitData(gates, cnotGates, czGates, swapGates, measureNthQ, numQubits), "0")
-        ).then(responseText => { setLog(responseText); ParseResultData({ data: responseText, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist }) });
+        ).then(responseText => { setLog(responseText); ParseResultData({ data: responseText, setBlochData, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist }) });
 
 
     };
@@ -109,13 +109,13 @@ export function SendToBackEnd_Calculate({ gates, cnotGates, czGates, swapGates, 
     const sendProbability = () => {
         request_backend(
             quantum_encode(extractCircuitData(gates, cnotGates, czGates, swapGates, measureNthQ, numQubits), "1")
-        ).then(responseText => { setLog(responseText); ParseResultData({ data: responseText, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist }) });
+        ).then(responseText => { setLog(responseText); ParseResultData({ data: responseText, setBlochData, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist }) });
     };
 
     const sendMeasure = () => {
         request_backend(
             quantum_encode(extractCircuitData(gates, cnotGates, czGates, swapGates, measureNthQ, numQubits), "2")
-        ).then(responseText => { setLog(responseText); ParseResultData({ data: responseText, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist }) });
+        ).then(responseText => { setLog(responseText); ParseResultData({ data: responseText, setBlochData, setProbData, setEdgesResultGraph, setVerticesResultGraph, setMeasuredValue, setMeasurementHist }) });
     };
 
     return (
