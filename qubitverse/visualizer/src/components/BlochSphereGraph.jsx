@@ -82,7 +82,7 @@ export default function BlochSphereGraph({ no_qubits, blochData }) {
                     onChange={handleQubitChange}
                     className="border rounded p-1"
                 >
-                    {blochData.map((_, index) => (
+                    {Array.from({ length: no_qubits }, (_, index) => (
                         <option key={index} value={index}>
                             Qubit {index + 1}
                         </option>
