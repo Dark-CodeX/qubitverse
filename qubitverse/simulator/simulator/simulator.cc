@@ -111,13 +111,13 @@ std::string get_quantum_info(const std::size_t &nQ, const std::vector<std::uniqu
                 qsys.apply_rotation_z(deg_to_rad(casted->M_theta), casted->M_qubit);
                 set_quantum_states(qsys, ret_val, casted->M_gate);
             }
-            else if(casted->M_gate == "V")
+            else if (casted->M_gate == "V")
             {
                 std::printf("Applying V Gate on Qubit %zu:\n", casted->M_qubit);
                 qsys.apply_v(casted->M_qubit);
                 set_quantum_states(qsys, ret_val, casted->M_gate);
             }
-            else if(casted->M_gate == "adjV")
+            else if (casted->M_gate == "adjV")
             {
                 std::printf("Applying V^-1 Gate on Qubit %zu:\n", casted->M_qubit);
                 qsys.apply_adj_v(casted->M_qubit);
@@ -145,13 +145,21 @@ std::string get_quantum_info(const std::size_t &nQ, const std::vector<std::uniqu
             qsys.apply_swap(casted->M_qubit1, casted->M_qubit2);
             set_quantum_states(qsys, ret_val, "swap");
         }
-        else if(i->get_gate_type() == simulator::gate_type::MEASURE_NTH)
+        else if (i->get_gate_type() == simulator::gate_type::MEASURE_NTH)
         {
             auto *casted = dynamic_cast<simulator::ast_measure_nth_node *>(i.get());
             std::printf("Measuring the Qubit %zu:\n", casted->M_qubit);
             qsys.measure_nth_qubit(casted->M_qubit);
             set_quantum_states(qsys, ret_val, "measureNth");
         }
+    }
+
+    ret_val.append("bloch\n");
+    for (std::size_t i = 0; i < qsys.no_of_qubits(); i++)
+    {
+        double bloch[3];
+        qsys.get_bloch_data(bloch, i);
+        ret_val.append(std::to_string(bloch[0]) + "," + std::to_string(bloch[1]) + "," + std::to_string(bloch[2]) + "\n");
     }
 
     if (operation == '0')
