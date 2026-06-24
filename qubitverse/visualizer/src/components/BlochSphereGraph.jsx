@@ -74,6 +74,7 @@ export default function BlochSphereGraph({ no_qubits, blochData }) {
     const [currentBlochData, setCurrentBlochData] = React.useState(blochData[selectedQubit]);
 
     useEffect(() => {
+        if (!blochData || !blochData[selectedQubit]) return;
         var d = blochData[selectedQubit];
         d = [d.x, d.y, d.z];
         setCurrentBlochData(d);
@@ -103,12 +104,18 @@ export default function BlochSphereGraph({ no_qubits, blochData }) {
                     ))}
                 </select>
             </div>
-            <Canvas style={{ height: "calc(100vh - 185px)", background: "#ffffff" }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} />
-                <BlochSphere vector={currentBlochData} />
-                <OrbitControls />
-            </Canvas>
+            {blochData.length > 0 ? (
+                <Canvas style={{ height: "calc(100vh - 185px)", background: "#ffffff" }}>
+                    <ambientLight intensity={0.5} />
+                    <pointLight position={[10, 10, 10]} />
+                    <BlochSphere vector={currentBlochData} />
+                    <OrbitControls />
+                </Canvas>
+            ) : (
+                <p style={{ color: "grey", textAlign: "center", marginTop: "20px", fontSize: "18px", fontWeight: "bold" }}>
+                    Click on Calculate to view the Bloch sphere.
+                </p>
+            )}
         </div>
     );
 }
