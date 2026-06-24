@@ -49,22 +49,36 @@ function BlochSphere({ vector }) {
                     [0, 0, 0],
                     vector
                 ]}
-                color="#ffcc00"
+                color="blue"
                 lineWidth={4}
             />
 
-            {/* Vector tip */}
-            <mesh position={vector}>
-                <sphereGeometry args={[0.03, 16, 16]} />
-                <meshBasicMaterial color="#ffcc00" />
+            {/* Vector tip (Updated to Cone) */}
+            <mesh
+                position={vector}
+                onUpdate={(self) => {
+                    self.lookAt(0, 0, 0);
+                    self.rotateX(-Math.PI / 2);
+                }}
+            >
+                {/* args: [radius, height, radialSegments] */}
+                <coneGeometry args={[0.04, 0.12, 16]} />
+                <meshBasicMaterial color="blue" />
             </mesh>
         </>
     );
 }
 
-// i want to ask user for which qubit they want to see the bloch sphere for, and then display the bloch sphere for that qubit. The blochData prop will contain the bloch sphere data for all qubits, and we will use the selected qubit index to get the data for that qubit.   
 export default function BlochSphereGraph({ no_qubits, blochData }) {
     const [selectedQubit, setSelectedQubit] = React.useState(0);
+    const [currentBlochData, setCurrentBlochData] = React.useState(blochData[selectedQubit]);
+
+    useEffect(() => {
+        var d = blochData[selectedQubit];
+        d = [d.x, d.y, d.z];
+        setCurrentBlochData(d);
+    }, [selectedQubit, blochData]);
+
 
     const handleQubitChange = (event) => {
         setSelectedQubit(parseInt(event.target.value));
@@ -92,7 +106,7 @@ export default function BlochSphereGraph({ no_qubits, blochData }) {
             <Canvas style={{ height: "calc(100vh - 185px)", background: "#ffffff" }}>
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} />
-                <BlochSphere vector={blochData[selectedQubit]} />
+                <BlochSphere vector={currentBlochData} />
                 <OrbitControls />
             </Canvas>
         </div>
