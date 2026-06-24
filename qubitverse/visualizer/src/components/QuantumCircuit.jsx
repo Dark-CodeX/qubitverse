@@ -1188,7 +1188,7 @@ const QuantumCircuit = ({ numQubits, setNumQubits }) => {
                         // an interactive graph
                         <ProbGraph probs={probData} />
                     ) : activeTab === "Bloch Sphere" ? (
-                        <BlochSphereGraph  no_qubits={nQubits} blochData={blochData} />
+                        <BlochSphereGraph  no_qubits={numQubits} blochData={blochData} />
                     ) : activeTab === "Log" ? (
                         <textarea
                             style={{
