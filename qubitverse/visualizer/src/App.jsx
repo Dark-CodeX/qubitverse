@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import QuantumCircuit from "./components/QuantumCircuit";
-import "./App.css";
 import Navbar from "./components/Navbar";
 import NQubitInput from "./components/NQubitInput";
 
