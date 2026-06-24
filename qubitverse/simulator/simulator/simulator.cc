@@ -159,7 +159,7 @@ std::string get_quantum_info(const std::size_t &nQ, const std::vector<std::uniqu
     {
         double bloch[3];
         qsys.get_bloch_data(bloch, i);
-        ret_val.append(std::to_string(bloch[0]) + "," + std::to_string(bloch[1]) + "," + std::to_string(bloch[2]) + "\n");
+        ret_val.append(std::to_string(i) + "=" + std::to_string(bloch[0]) + "," + std::to_string(bloch[1]) + "," + std::to_string(bloch[2]) + "\n");
     }
 
     if (operation == '0')
