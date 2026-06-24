@@ -10,7 +10,7 @@ namespace simulator
 {
     void qubit::apply_predefined_gate(complex *&__s, const std::size_t &_len, const gate_type &__g_type, const std::size_t &qubit_target)
     {
-        const std::size_t stride = 1 << qubit_target; // Distance between paired indices
+        const std::size_t stride = 1ULL << qubit_target; // Distance between paired indices
         std::size_t g_index;
         if (__g_type == gate_type::SQRT_OF_X_V)
             g_index = 7;
@@ -78,7 +78,7 @@ namespace simulator
 
     void qubit::apply_theta_gate(complex *&__s, const std::size_t &_len, const gate_type &__g_type, const double &__theta, const std::size_t &qubit_target)
     {
-        const std::size_t stride = 1 << qubit_target; // Distance between paired indices
+        const std::size_t stride = 1ULL << qubit_target; // Distance between paired indices
         qgate_2x2 __g;
         __g = qubit::get_theta_gate(__g, __g_type, __theta);
 
@@ -111,9 +111,9 @@ namespace simulator
         {
             for (std::size_t i = 0; i < _len; i++)
             {
-                if ((i & (1 << q_control)) != 0)
+                if ((i & (1ULL << q_control)) != 0)
                 { // If control qubit is 1
-                    std::size_t target_bit_flipped_index = i ^ (1 << q_target);
+                    std::size_t target_bit_flipped_index = i ^ (1ULL << q_target);
                     // Only swap once per pair.
                     if (i < target_bit_flipped_index)
                     {
@@ -144,7 +144,7 @@ namespace simulator
                 if (bit_q1 != bit_q2)
                 {
                     // Flip the bits at q_control and q_target.
-                    std::size_t j = i ^ ((1 << q_control) | (1 << q_target));
+                    std::size_t j = i ^ ((1ULL << q_control) | (1ULL << q_target));
                     // To avoid double swapping, swap only if i < j.
                     if (i < j)
                     {
@@ -163,9 +163,9 @@ namespace simulator
             std::exit(EXIT_FAILURE);
         }
         this->M_no_qubits = n;
-        this->M_len = 1 << n;
+        this->M_len = 1ULL << n;
         this->M_qubits = new complex[this->M_len]();
-        this->M_qubits[0] = {1, 0};
+        this->M_qubits[0] = {1, 0}; // initial state |0> = 1 + 0i, 0 + 0i, 0 + 0i, ..., 0 + 0i
     }
 
     qubit::qubit(const qubit &q)
@@ -286,6 +286,34 @@ namespace simulator
         return *this;
     }
 
+    void qubit::get_bloch_data(double (&__cord)[3], const std::size_t &nth) const
+    {
+        // __cord[0] = x
+        // __cord[1] = y
+        // __cord[2] = z
+
+        complex S = {0, 0};
+        double Z = 0;
+
+        for (std::size_t i = 0; i < this->M_len; i++)
+        {
+            std::size_t bit = (i >> nth) & 1;
+            if (bit == 1)
+                continue;
+
+            std::size_t j = i ^ (1ULL << nth);
+
+            qubit::complex a = this->M_qubits[i], b = this->M_qubits[j];
+
+            S += a * std::conj(b);
+            Z += (std::norm(a) - std::norm(b));
+        }
+
+        __cord[0] = 2.0 * S.real();
+        __cord[1] = 2.0 * S.imag();
+        __cord[2] = Z;
+    }
+
     const qubit::complex *qubit::get_qubits() const
     {
         return this->M_qubits;
@@ -308,7 +336,7 @@ namespace simulator
 
     void qubit::get_nth_qubit(complex (&__s)[2], const std::size_t &nth) const
     {
-        std::size_t mask = 1 << (this->M_no_qubits - nth - 1);
+        std::size_t mask = 1ULL << (this->M_no_qubits - nth - 1);
         for (std::size_t i = 0; i < this->M_len; i++)
         {
             if (i & mask)

@@ -89,6 +89,7 @@ namespace simulator
         qubit &apply_cnot(const std::size_t &q_control, const std::size_t &q_target);
         qubit &apply_cz(const std::size_t &q_control, const std::size_t &q_target);
         qubit &apply_swap(const std::size_t &qubit_1, const std::size_t &qubit_2);
+        void get_bloch_data(double (&__cord)[3], const std::size_t &nth) const;
         const complex *get_qubits() const;
         const std::size_t &get_size() const;
         const std::size_t memory_consumption() const;
