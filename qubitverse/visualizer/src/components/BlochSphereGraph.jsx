@@ -104,13 +104,15 @@ export default function BlochSphereGraph({ no_qubits, blochData }) {
                     ))}
                 </select>
                 // Display current Bloch vector, with i-cap, j-cap notation, and rounded to 3 decimal places, inside curly braces, also check for negative values and display them correctly
-                <span className="ml-4 text-gray-600">
-                    Current Bloch Vector: {"("}
-                    {currentBlochData[0].toFixed(3)}î,{currentBlochData[1] > 0 ? "+" : ""}
-                    {currentBlochData[1].toFixed(3)}ĵ,{currentBlochData[2] > 0 ? "+" : ""}
-                    {currentBlochData[2].toFixed(3)}k̂
-                    {")"}
-                </span>
+                {currentBlochData && (
+                    <span className="ml-4 text-gray-600">
+                        Current Bloch Vector: {"("}
+                        {currentBlochData[0].toFixed(3)}î,{currentBlochData[1] > 0 ? "+" : ""}
+                        {currentBlochData[1].toFixed(3)}ĵ,{currentBlochData[2] > 0 ? "+" : ""}
+                        {currentBlochData[2].toFixed(3)}k̂
+                        {")"}
+                    </span>
+                )}
             </div>
             {blochData.length > 0 ? (
                 <Canvas style={{ height: "calc(100vh - 185px)", background: "#ffffff" }}>
