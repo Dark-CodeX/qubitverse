@@ -71,7 +71,7 @@ function BlochSphere({ vector }) {
 
 export default function BlochSphereGraph({ no_qubits, blochData }) {
     const [selectedQubit, setSelectedQubit] = React.useState(0);
-    const [currentBlochData, setCurrentBlochData] = React.useState(blochData[selectedQubit]);
+    const [currentBlochData, setCurrentBlochData] = React.useState(blochData ? blochData[selectedQubit] : [0, 0, 0]);
 
     useEffect(() => {
         if (!blochData || !blochData[selectedQubit]) return;
@@ -103,14 +103,13 @@ export default function BlochSphereGraph({ no_qubits, blochData }) {
                         </option>
                     ))}
                 </select>
-                // Display current Bloch vector, with i-cap, j-cap notation, and rounded to 3 decimal places, inside curly braces, also check for negative values and display them correctly
                 {currentBlochData && (
                     <span className="ml-4 text-gray-600">
-                        Current Bloch Vector: {"("}
-                        {currentBlochData[0].toFixed(3)}î,{currentBlochData[1] > 0 ? "+" : ""}
-                        {currentBlochData[1].toFixed(3)}ĵ,{currentBlochData[2] > 0 ? "+" : ""}
+                        Current Bloch Vector: (
+                        {currentBlochData[0].toFixed(3)}î {currentBlochData[1] >= 0 ? "+ " : ""}
+                        {currentBlochData[1].toFixed(3)}ĵ {currentBlochData[2] >= 0 ? "+ " : ""}
                         {currentBlochData[2].toFixed(3)}k̂
-                        {")"}
+                        )
                     </span>
                 )}
             </div>
