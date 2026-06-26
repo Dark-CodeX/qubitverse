@@ -71,7 +71,7 @@ function BlochSphere({ vector }) {
 
 export default function BlochSphereGraph({ no_qubits, blochData }) {
     const [selectedQubit, setSelectedQubit] = React.useState(0);
-    const [currentBlochData, setCurrentBlochData] = React.useState(blochData ? [blochData[selectedQubit].x, blochData[selectedQubit].y, blochData[selectedQubit].z] : [0, 0, 0]);
+    const [currentBlochData, setCurrentBlochData] = React.useState(blochData !== undefined && blochData[selectedQubit] !== undefined ? [blochData[selectedQubit].x, blochData[selectedQubit].y, blochData[selectedQubit].z] : [0, 0, 0]);
 
     useEffect(() => {
         if (!blochData || !blochData[selectedQubit]) return;
